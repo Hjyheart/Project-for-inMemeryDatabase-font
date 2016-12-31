@@ -13,13 +13,13 @@ router.post('/login', function (req, res, next) {
     req.session.userId = req.query.id;
     req.session.save();
 
-    res.redirect('/');
+    res.send('true');
 });
 
 router.get('/logout', function (req, res, next) {
     console.log(req.query);
     delete req.session.userId;
-    res.redirect('/');
+    res.send('true');
 });
 
 /* GET myCenter page */

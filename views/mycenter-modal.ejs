@@ -1,0 +1,116 @@
+<div class="ui basic modal" id="login-modal">
+    <div class="ui icon header">
+        <i class="user icon"></i>
+        {{method}}
+    </div>
+    <div class="ui grid aligned centered container">
+        <div class="ui row">
+            <div class="ui six wide column">
+                <div class="content">
+                    <!--登录表单-->
+                    <div class="ui inverted form" id="login-form">
+                        <div class="field" id="id">
+                            <label>账号</label>
+                            <input type="text" name="ID" placeholder="账号" id="user-id" ng-focus="remove('id')">
+                        </div>
+                        <div class="field" id="pwd">
+                            <label>密码</label>
+                            <input type="password" name="PWD" placeholder="密码" id="user-pwd" ng-focus="remove('pwd')">
+                        </div>
+                        <div class="ui two buttons field">
+                            <button class="ui green inverted button" ng-click="submitLogin()">
+                                提交
+                            </button>
+                            <button class="ui yellow inverted button" ng-click="toRegister()">
+                                注册
+                            </button>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <div class="field">
+                            <button class="ui red fluid inverted button" ng-click="back()">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                    <!--注册表单-->
+                    <div class="ui inverted form transition hidden" id="register-form">
+                        <div class="field" id="re-id">
+                            <label>账号</label>
+                            <input type="text" name="ID" placeholder="账号" id="re-user-id" ng-focus="remove('re-id')">
+                        </div>
+                        <div class="field" id="re-count">
+                            <label>身份证号码</label>
+                            <input type="text" name="COUNT" placeholder="身份证" id="re-user-count" ng-focus="remove('re-count')">
+                        </div>
+                        <div class="field" id="re-pwd">
+                            <label>密码</label>
+                            <input type="password" name="PWD" placeholder="密码" id="re-user-pwd" ng-focus="remove('re-pwd')">
+                        </div>
+                        <div class="field" id="re-re-pwd">
+                            <label>重复密码</label>
+                            <input type="password" name="RE-PWD" placeholder="重复密码" id="re-re-user-pwd" ng-focus="remove('re-re-pwd')">
+                        </div>
+                        <div class="ui two buttons field">
+                            <button class="ui green inverted button" ng-click="submitRegister()">
+                                提交
+                            </button>
+                            <button class="ui yellow inverted button" ng-click="toLogin()">
+                                登录
+                            </button>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <div class="field">
+                            <button class="ui red fluid inverted button" ng-click="back()">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--充值-->
+<div class="ui modal" id="put-in-modal">
+    <i class="ui close icon"></i>
+    <div class="header">
+        充值
+    </div>
+    <div class="ui content">
+        <div class="ui right labeled input">
+            <div class="ui label">$</div>
+            <input type="text" placeholder="数值" id="put-in">
+            <div class="ui basic label">.00</div>
+        </div>
+    </div>
+    <div class="ui actions">
+        <div class="ui green ok inverted button">
+            <i class="checkmark icon"></i>
+            确认
+        </div>
+    </div>
+</div>
+
+<!--转出-->
+<div class="ui modal" id="put-out-modal">
+    <i class="ui close icon"></i>
+    <div class="header">
+        转出
+    </div>
+    <div class="ui content">
+        <div class="ui right labeled input">
+            <div class="ui label">$</div>
+            <input type="text" placeholder="数值" id="put-out">
+            <div class="ui basic label">.00</div>
+        </div>
+    </div>
+    <div class="ui actions">
+        <div class="ui green ok inverted button">
+            <i class="checkmark icon"></i>
+            确认
+        </div>
+    </div>
+</div>

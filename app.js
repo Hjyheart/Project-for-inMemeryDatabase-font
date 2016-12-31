@@ -14,7 +14,7 @@ var app = express();
 
 app.use(session({
     secret: 'xixixi', // 建议使用 128 个字符的随机字符串
-    cookie: { maxAge: 60 * 1000 }
+    cookie: { maxAge: 60 * 1000 * 60}
 }));
 
 

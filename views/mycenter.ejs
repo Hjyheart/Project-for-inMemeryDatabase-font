@@ -4,12 +4,15 @@
     <title>我的个人中心</title>
     <link rel='stylesheet' href='/sematic/semantic.min.css' />
     <link rel='stylesheet' href='/mdui/css/mdui.min.css' />
+    <link rel='stylesheet' href='/nv.d3.min.css' />
     <script src="/jquery.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.min.js"
             crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="/sematic/semantic.min.js" crossorigin="anonymous"></script>
     <script src="/mdui/js/mdui.min.js"></script>
+    <script src="/nv.d3.min.js"></script>
     <script src="/app.js"></script>
     <script src="/service/const.service.js"></script>
     <script src="/controller/mycenterCtrl.js"></script>
@@ -19,18 +22,18 @@
 <header class="mdui-appbar mdui-appbar-fixed">
     <div class="mdui-toolbar mdui-color-theme">
         <span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-drawer="{target: '#main-drawer'}"><i class="mdui-icon material-icons">&#xe5d2;</i></span>
-        <a href="/home" class="mdui-typo-headline mdui-hidden-xs">期货小屋</a>
-        <a href="/home" class="mdui-typo-title">内存数据库课设</a>
+        <a href="/" class="mdui-typo-headline mdui-hidden-xs">期货小屋</a>
+        <a href="/" class="mdui-typo-title">内存数据库课设</a>
         <div class="mdui-toolbar-spacer"></div>
     </div>
 </header>
-<div class="transition hidden"><%=state%></div>
-<div class="mdui-drawer mdui-drawer-close" id="main-drawer">
+<div class="transition hidden" id="state"><%=state%></div>
+<div class="mdui-drawer mdui-drawer-open" id="main-drawer">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
         <div class="mdui-collapse-item mdui-collapse-item-open">
             <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">&#xe838;</i>
-                <div class="mdui-list-item-content">大厅</div>
+                <div class="mdui-list-item-content"><a href="/">大厅</a></div>
             </div>
         </div>
         <div class="mdui-list-item mdui-ripple">
@@ -40,81 +43,111 @@
     </div>
 </div>
 
-<div class="ui grid vertical container">
-    <div class="ui basic modal">
-        <div class="ui icon header">
-            <i class="user icon"></i>
-            {{method}}
+<div class="ui grid vertical container" style="padding: 20px">
+    <%include mycenter-modal.ejs%>
+    <div class="ui row">
+        <div class="ui seven wide column">
+            <div class="ui card" style="min-width: 350px; min-height: 200px">
+                <div class="content">
+                    <div class="header">名字</div>
+                    <br/>
+                    <div class="meta">
+                        <span class="category">33021XXXXXXXX2031</span>
+                    </div>
+                    <div class="description">
+                        <p></p>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <div class="right floated author"><img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/matt.jpg"> </div>
+                </div>
+            </div>
+
         </div>
-        <div class="ui grid aligned centered container">
-            <div class="ui row">
-                <div class="ui six wide column">
+        <div class="ui seven wide column">
+            <div class="ui cards">
+                <div class="card" style="min-width: 400px;min-height: 200px">
                     <div class="content">
-                        <!--登录表单-->
-                        <div class="ui inverted form" id="login-form">
-                            <div class="field" id="id">
-                                <label>账号</label>
-                                <input type="text" name="ID" placeholder="账号" id="user-id" ng-focus="remove('id')">
-                            </div>
-                            <div class="field" id="pwd">
-                                <label>密码</label>
-                                <input type="password" name="PWD" placeholder="密码" id="user-pwd" ng-focus="remove('pwd')">
-                            </div>
-                            <div class="ui two buttons field">
-                                <button class="ui green inverted button" ng-click="submitLogin()">
-                                    提交
-                                </button>
-                                <button class="ui yellow inverted button" ng-click="toRegister()">
-                                    注册
-                                </button>
-                            </div>
-                            <br/>
-                            <hr/>
-                            <div class="field">
-                                <button class="ui red fluid inverted button" ng-click="back()">
-                                    取消
-                                </button>
-                            </div>
+                        <h2 class="header">账户余额 </h2>
+                        <br/>
+                        <div class="mdui-typo-display-2 mdui-text-color-red" align="center">
+                            $ 100.89
                         </div>
-                        <!--注册表单-->
-                        <div class="ui inverted form transition hidden" id="register-form">
-                            <div class="field" id="re-id">
-                                <label>账号</label>
-                                <input type="text" name="ID" placeholder="账号" id="re-user-id" ng-focus="remove('re-id')">
-                            </div>
-                            <div class="field" id="re-count">
-                                <label>身份证号码</label>
-                                <input type="text" name="COUNT" placeholder="身份证" id="re-user-count" ng-focus="remove('re-count')">
-                            </div>
-                            <div class="field" id="re-pwd">
-                                <label>密码</label>
-                                <input type="password" name="PWD" placeholder="密码" id="re-user-pwd" ng-focus="remove('re-pwd')">
-                            </div>
-                            <div class="field" id="re-re-pwd">
-                                <label>重复密码</label>
-                                <input type="password" name="RE-PWD" placeholder="重复密码" id="re-re-user-pwd" ng-focus="remove('re-re-pwd')">
-                            </div>
-                            <div class="ui two buttons field">
-                                <button class="ui green inverted button" ng-click="submitRegister()">
-                                    提交
-                                </button>
-                                <button class="ui yellow inverted button" ng-click="toLogin()">
-                                    登录
-                                </button>
-                            </div>
-                            <br/>
-                            <hr/>
-                            <div class="field">
-                                <button class="ui red fluid inverted button" ng-click="back()">
-                                    取消
-                                </button>
-                            </div>
+                        <br/>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui two buttons">
+                            <div class="ui basic green button" ng-click="putIn()">充值</div>
+                            <div class="ui basic red button" ng-click="putOut()">转出</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="ui row">
+        <div class="ui fourteen wide column">
+            <div class="ui piled segment">
+                <h1 class="ui header" align="center">
+                    昨日收益
+                </h1>
+                <h2 class="mdui-text-color-red" align="center">
+                    + 10$
+                </h2>
+                <hr/>
+                <div class="ui orange button fluid">期货总资产：200$</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui row">
+        <div class="ui fourteen wide column">
+            <h2 class="ui header">我的期货</h2>
+            <div class="mdui-panel" mdui-panel>
+                <div class="mdui-panel-item">
+                    <div class="mdui-panel-item-header">
+                        <div class="mdui-panel-item-title">期货1</div>
+                        <div class="mdui-panel-item-summary">
+                            昨日涨幅：<span class="mdui-text-color-red">1%</span>
+                            持有：<span class="mdui-text-color-red">100$</span>
+                        </div>
+
+                        <i class="mdui-panel-item-arrow mdui-icon material-icons">&#xe313;</i>
+                    </div>
+                    <div class="mdui-panel-item-body" id="chart">
+                        <h4 class="ui header">昨日动态</h4>
+                        <svg></svg>
+                        <div class="mdui-panel-item-actions">
+                            <button class="ui green basic button">买入</button>
+                            <button class="ui red basic button">卖出</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mdui-panel-item">
+                    <div class="mdui-panel-item-header">
+                        <div class="mdui-panel-item-title">期货2</div>
+                        <div class="mdui-panel-item-summary">
+                            昨日涨幅：<span class="mdui-text-color-red">1%</span>
+                            持有：<span class="mdui-text-color-red">100$</span>
+                        </div>
+
+                        <i class="mdui-panel-item-arrow mdui-icon material-icons">&#xe313;</i>
+                    </div>
+                    <div class="mdui-panel-item-body" id="chart1">
+                        <h4 class="ui header">昨日动态</h4>
+                        <svg></svg>
+                        <div class="mdui-panel-item-actions">
+                            <button class="ui green basic button">买入</button>
+                            <button class="ui red basic button">卖出</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>
