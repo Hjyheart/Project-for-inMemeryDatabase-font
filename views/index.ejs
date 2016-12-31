@@ -13,9 +13,12 @@
     <script src="/sematic/semantic.min.js" crossorigin="anonymous"></script>
     <script src="/mdui/js/mdui.min.js"></script>
     <script src="/nv.d3.min.js"></script>
+    <script src="/app.js"></script>
+    <script src="/service/const.service.js"></script>
+    <script src="/controller/futuresCtrl.js"></script>
 
   </head>
-  <body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-blue mdui-theme-accent-blue">
+  <body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-blue mdui-theme-accent-blue" ng-app="myApp" ng-controller="futuresCtrl">
   <header class="mdui-appbar mdui-appbar-fixed">
     <div class="mdui-toolbar mdui-color-theme">
       <span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-drawer="{target: '#main-drawer'}"><i class="mdui-icon material-icons">&#xe5d2;</i></span>
@@ -29,17 +32,16 @@
       <div class="mdui-collapse-item mdui-collapse-item-open">
         <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
           <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">&#xe838;</i>
-          <div class="mdui-list-item-content">开始使用</div>
+          <div class="mdui-list-item-content">大厅</div>
           <i class="mdui-collapse-item-arrow mdui-icon material-icons">&#xe313;</i>
         </div>
-        <div class="mdui-collapse-item-body mdui-list">
-          <a id="time" href="#" ng-click="toTime()" class="mdui-list-item mdui-ripple mdui-list-item-active">大厅</a>
-          <a id="time" href="#" ng-click="toTime()" class="mdui-list-item mdui-ripple mdui-list-item">搜索</a>
+        <div class="mdui-collapse-item-body mdui-list" ng-repeat="future in futures">
+          <a id={{$index}} href="#" ng-click="switch(future, $index)" class="mdui-list-item mdui-ripple">{{future.name}}</a>
         </div>
       </div>
       <div class="mdui-list-item mdui-ripple">
         <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-orange">&#xe8d1;</i>
-        <div class="mdui-list-item-content">个人中心</div>
+        <div class="mdui-list-item-content"><a href="/mycenter">个人中心</a></div>
       </div>
     </div>
   </div>
@@ -47,10 +49,11 @@
   <div class="ui grid vertical container">
     <div class="ui row">
       <br/>
-      <h1 class="ui header">期货大厅</h1>
+      <h1 class="ui header">{{future.name}}</h1>
     </div>
     <div class="ui row">
-      <div class="ui ten wide column raised segment" id="chart-container" style="max-height: 600px;">
+      <div class="ui ten wide column raised segment" id="chart1-container" style="max-height: 600px;">
+        <h2 class="ui header">最近动态</h2>
         <div id="chart1">
           <svg></svg>
         </div>
@@ -60,13 +63,13 @@
         <div class="ui cards">
           <div class="card" style="min-width: 350px">
           <div class="content">
-            <h2 class="header">某期货 </h2>
+            <h2 class="header">{{future.name}} </h2>
             <br/>
-            <!--<div class="mdui-typo-display-2 mdui-text-color-green">-->
+            <!--<div class="mdui-typo-display-2 mdui-text-color-red">-->
               <!--$ 100.89-->
               <!--<i class="mdui-icon material-icons">&#xe5d8;</i>-->
             <!--</div>-->
-            <div class="mdui-typo-display-2 mdui-text-color-red">
+            <div class="mdui-typo-display-2 mdui-text-color-green">
               $ 100.89
               <i class="mdui-icon material-icons">&#xe5db;</i>
             </div>
@@ -83,186 +86,197 @@
         <!--期货每秒价位-->
         <!--<div class="ui raised segment">-->
         <!--</div>-->
-        <div class="ui raised segment" style="max-height: 220px; overflow-y: scroll">
-          <h2 class="ui header">价位变化</h2>
-          <table class="ui very basic celled table">
-            <thead>
-            <tr><th>时间</th>
-              <th>价格</th>
-            </tr></thead>
-            <tbody>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>
-                22
-              </td>
-            </tr>
-            </tbody>
-          </table>
+        <div class="ui raised segment" id="chart2-container" style="overflow-y: scroll">
+          <h2 class="ui header">今日动态</h2>
+          <div id="chart2">
+            <svg></svg>
+          </div>
         </div>
-
+      </div>
+    </div>
+    <!--价位表-->
+    <h2 class="ui header">今日价位表</h2>
+    <div class="ui row">
+      <div class="ui raised fluid segment fourteen wide column" style="max-height: 220px; overflow-y: scroll">
+        <table class="ui very basic celled table">
+          <thead>
+          <tr><th>时间</th>
+            <th>价格</th>
+          </tr></thead>
+          <tbody>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <td>
+              1
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <script>
     function test() {
@@ -272,7 +286,7 @@
     };
 
 
-    var data = [{values: [
+    var data1 = [{values: [
         {"date": 15707, "open": 145.11, "high": 146.15, "low": 144.73, "close": 146.06, "volume": 192059000, "adjusted": 144.65},
         {"date": 15708, "open": 145.99, "high": 146.37, "low": 145.34, "close": 145.73, "volume": 144761800, "adjusted": 144.32},
         {"date": 15709, "open": 145.97, "high": 146.61, "low": 145.67, "close": 146.37, "volume": 116817700, "adjusted": 144.95},
@@ -447,37 +461,96 @@
     ]}];
 
     nv.addGraph(function() {
-        var chart = nv.models.ohlcBarChart()
+        var chart1 = nv.models.ohlcBarChart()
             .x(function(d) { return d['date'] })
             .y(function(d) { return d['close'] })
             .duration(250)
             .margin({left: 75, bottom: 50});
 
         // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
-        chart.xAxis
-            .axisLabel("Dates")
+        chart1.xAxis
+            .axisLabel("日期")
             .tickFormat(function(d) {
                 // I didn't feel like changing all the above date values
                 // so I hack it to make each value fall on a different date
                 return d3.time.format('%x')(new Date(new Date() - (20000 * 86400000) + (d * 86400000)));
             });
 
-        chart.yAxis
-            .axisLabel('Stock Price')
-            .tickFormat(function(d,i){ return '$' + d3.format(',.1f')(d); });
+        chart1.yAxis
+            .axisLabel('价格')
+            .tickFormat(function(d,i){ return '￥' + d3.format(',.1f')(d); });
 
 
 
         d3.select("#chart1 svg")
-            .attr('width', $('#chart-container').clientWidth - 20)
+            .attr('width', $('#chart1-container').clientWidth - 20)
             .attr('height', 400)
-            .datum(data)
+            .datum(data1)
             .transition().duration(500)
-            .call(chart);
+            .call(chart1);
 
-        nv.utils.windowResize(chart.update);
-        return chart;
+        nv.utils.windowResize(chart1.update);
+        return chart1;
     });
+
+
+    var data2;
+    var char2;
+    
+    data2 = getData();
+    
+    function getData() {
+        var rand = [];
+        for (var i = 0; i < 100; i++) {
+            rand.push({x:i, y: Math.random() / 10});
+        }
+
+        return [
+            {
+                values: rand,
+                key: "价格",
+                color: "#FF1744"
+            }
+        ];
+    };
+
+    nv.addGraph(function() {
+        chart2 = nv.models.lineChart()
+            .options({
+                duration: 300,
+                useInteractiveGuideline: true
+            })
+        ;
+
+        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+        chart2.xAxis
+            .axisLabel("时间 (s)")
+            .tickFormat(d3.format(',.1f'))
+            .staggerLabels(true)
+        ;
+
+        chart2.yAxis
+            .axisLabel('价格 (￥)')
+            .tickFormat(function(d) {
+                if (d == null) {
+                    return 'N/A';
+                }
+                return d3.format(',.2f')(d);
+            })
+        ;
+
+
+        d3.select('#chart2 svg')
+            .attr('width', $('#chart2-container').clientWidth - 20)
+            .attr('height', 250)
+            .datum(data2)
+            .call(chart2);
+
+        nv.utils.windowResize(chart2.update);
+
+        return chart2;
+    });
+
   </script>
   </body>
 </html>

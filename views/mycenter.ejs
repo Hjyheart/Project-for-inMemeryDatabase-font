@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的个人中心</title>
+    <link rel='stylesheet' href='/sematic/semantic.min.css' />
+    <link rel='stylesheet' href='/mdui/css/mdui.min.css' />
+    <script src="/jquery.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.min.js"
+            crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/sematic/semantic.min.js" crossorigin="anonymous"></script>
+    <script src="/mdui/js/mdui.min.js"></script>
+    <script src="/app.js"></script>
+    <script src="/service/const.service.js"></script>
+    <script src="/controller/mycenterCtrl.js"></script>
+
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-blue mdui-theme-accent-blue" ng-app="myApp" ng-controller="mycenterCtrl">
+<header class="mdui-appbar mdui-appbar-fixed">
+    <div class="mdui-toolbar mdui-color-theme">
+        <span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-drawer="{target: '#main-drawer'}"><i class="mdui-icon material-icons">&#xe5d2;</i></span>
+        <a href="/home" class="mdui-typo-headline mdui-hidden-xs">期货小屋</a>
+        <a href="/home" class="mdui-typo-title">内存数据库课设</a>
+        <div class="mdui-toolbar-spacer"></div>
+    </div>
+</header>
+<div class="transition hidden"><%=state%></div>
+<div class="mdui-drawer mdui-drawer-close" id="main-drawer">
+    <div class="mdui-list" mdui-collapse="{accordion: true}">
+        <div class="mdui-collapse-item mdui-collapse-item-open">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">&#xe838;</i>
+                <div class="mdui-list-item-content">大厅</div>
+            </div>
+        </div>
+        <div class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-orange">&#xe8d1;</i>
+            <div class="mdui-list-item-content">个人中心</div>
+        </div>
+    </div>
+</div>
+
+<div class="ui grid vertical container">
+    <div class="ui basic modal">
+        <div class="ui icon header">
+            <i class="user icon"></i>
+            {{method}}
+        </div>
+        <div class="ui grid aligned centered container">
+            <div class="ui row">
+                <div class="ui six wide column">
+                    <div class="content">
+                        <!--登录表单-->
+                        <div class="ui inverted form" id="login-form">
+                            <div class="field" id="id">
+                                <label>账号</label>
+                                <input type="text" name="ID" placeholder="账号" id="user-id" ng-focus="remove('id')">
+                            </div>
+                            <div class="field" id="pwd">
+                                <label>密码</label>
+                                <input type="password" name="PWD" placeholder="密码" id="user-pwd" ng-focus="remove('pwd')">
+                            </div>
+                            <div class="ui two buttons field">
+                                <button class="ui green inverted button" ng-click="submitLogin()">
+                                    提交
+                                </button>
+                                <button class="ui yellow inverted button" ng-click="toRegister()">
+                                    注册
+                                </button>
+                            </div>
+                            <br/>
+                            <hr/>
+                            <div class="field">
+                                <button class="ui red fluid inverted button" ng-click="back()">
+                                    取消
+                                </button>
+                            </div>
+                        </div>
+                        <!--注册表单-->
+                        <div class="ui inverted form transition hidden" id="register-form">
+                            <div class="field" id="re-id">
+                                <label>账号</label>
+                                <input type="text" name="ID" placeholder="账号" id="re-user-id" ng-focus="remove('re-id')">
+                            </div>
+                            <div class="field" id="re-count">
+                                <label>身份证号码</label>
+                                <input type="text" name="COUNT" placeholder="身份证" id="re-user-count" ng-focus="remove('re-count')">
+                            </div>
+                            <div class="field" id="re-pwd">
+                                <label>密码</label>
+                                <input type="password" name="PWD" placeholder="密码" id="re-user-pwd" ng-focus="remove('re-pwd')">
+                            </div>
+                            <div class="field" id="re-re-pwd">
+                                <label>重复密码</label>
+                                <input type="password" name="RE-PWD" placeholder="重复密码" id="re-re-user-pwd" ng-focus="remove('re-re-pwd')">
+                            </div>
+                            <div class="ui two buttons field">
+                                <button class="ui green inverted button" ng-click="submitRegister()">
+                                    提交
+                                </button>
+                                <button class="ui yellow inverted button" ng-click="toLogin()">
+                                    登录
+                                </button>
+                            </div>
+                            <br/>
+                            <hr/>
+                            <div class="field">
+                                <button class="ui red fluid inverted button" ng-click="back()">
+                                    取消
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

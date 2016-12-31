@@ -16,4 +16,22 @@ router.post('/login', function (req, res, next) {
     res.redirect('/');
 });
 
+router.get('/logout', function (req, res, next) {
+    console.log(req.query);
+    delete req.session.userId;
+    res.redirect('/');
+});
+
+/* GET myCenter page */
+router.get('/mycenter', function (req, res, next) {
+    var id;
+    if (req.session.userId === undefined){
+        id = false;
+    }else{
+        id = req.session.userId;
+    }
+
+    res.render('mycenter', {state : id});
+});
+
 module.exports = router;
