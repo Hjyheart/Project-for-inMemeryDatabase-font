@@ -77,8 +77,8 @@
           </div>
           <div class="extra content">
             <div class="ui two buttons">
-              <div class="ui basic green button">买入</div>
-              <div class="ui basic red button">卖出</div>
+              <div class="ui basic green button" ng-click="buyFutures()">买入</div>
+              <div class="ui basic red button" ng-click="sellFutures()">卖出</div>
             </div>
           </div>
         </div>
@@ -277,6 +277,10 @@
       </div>
     </div>
   </div>
+
+
+  <!--弹框-->
+  <%include index-modal.ejs%>
 
   <script>
     function test() {
