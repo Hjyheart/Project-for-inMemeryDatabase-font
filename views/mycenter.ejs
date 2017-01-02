@@ -45,7 +45,7 @@
 
 <div class="ui grid vertical container" style="padding: 20px">
     <%include mycenter-modal.ejs%>
-    <div class="ui row">
+    <div class="ui row" ng-if="isLogin">
         <div class="ui seven wide column">
             <div class="ui card" style="min-width: 350px; min-height: 200px">
                 <div class="content">
@@ -55,10 +55,11 @@
                         <span class="category">33021XXXXXXXX2031</span>
                     </div>
                     <div class="description">
-                        <p></p>
+                        <p>性别:<i class="ui man icon"></i></p>
                     </div>
                 </div>
                 <div class="extra content">
+                    <div class="left floated text">Tel:15900582673</div>
                     <div class="right floated author"><img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/matt.jpg"> </div>
                 </div>
             </div>
@@ -86,7 +87,7 @@
         </div>
     </div>
 
-    <div class="ui row">
+    <div class="ui row" ng-if="isLogin">
         <div class="ui fourteen wide column">
             <div class="ui piled segment">
                 <h1 class="ui header" align="center">
@@ -101,7 +102,7 @@
         </div>
     </div>
 
-    <div class="ui row">
+    <div class="ui row" ng-if="isLogin">
         <div class="ui fourteen wide column">
             <h2 class="ui header">我的期货</h2>
             <div class="mdui-panel" mdui-panel>

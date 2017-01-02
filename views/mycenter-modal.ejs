@@ -1,7 +1,7 @@
 <div class="ui basic modal" id="login-modal">
     <div class="ui icon header">
-        <i class="user icon"></i>
-        {{method}}
+        <!--<i class="user icon"></i>-->
+        <h1>{{method}}</h1>
     </div>
     <div class="ui grid aligned centered container">
         <div class="ui row">
@@ -43,14 +43,26 @@
                             <label>身份证号码</label>
                             <input type="text" name="COUNT" placeholder="身份证" id="re-user-count" ng-focus="remove('re-count')">
                         </div>
-                        <div class="field" id="re-pwd">
-                            <label>密码</label>
-                            <input type="password" name="PWD" placeholder="密码" id="re-user-pwd" ng-focus="remove('re-pwd')">
+                        <div class="inline field">
+                            <label>性别</label>
+                            <a href="#" id="male"><i class="ui male large icon" ng-click="showFemale()"></i>男</a>
+                            <a href="#" id="female" class="transition hidden" ng-click="showMale()"><i class="ui female large icon"></i>女</a>
                         </div>
-                        <div class="field" id="re-re-pwd">
-                            <label>重复密码</label>
-                            <input type="password" name="RE-PWD" placeholder="重复密码" id="re-re-user-pwd" ng-focus="remove('re-re-pwd')">
+                        <div class="field" id="re-tel">
+                            <label>电话号码</label>
+                            <input type="text" name="TEL" placeholder="电话号码" id="re-user-tel" ng-focus="remove('re-tel')">
                         </div>
+                        <div class="two fields">
+                            <div class="field" id="re-pwd">
+                                <label>密码</label>
+                                <input type="password" name="PWD" placeholder="密码" id="re-user-pwd" ng-focus="remove('re-pwd')">
+                            </div>
+                            <div class="field" id="re-re-pwd">
+                                <label>重复密码</label>
+                                <input type="password" name="RE-PWD" placeholder="重复密码" id="re-re-user-pwd" ng-focus="remove('re-re-pwd')">
+                            </div>
+                        </div>
+
                         <div class="ui two buttons field">
                             <button class="ui green inverted button" ng-click="submitRegister()">
                                 提交

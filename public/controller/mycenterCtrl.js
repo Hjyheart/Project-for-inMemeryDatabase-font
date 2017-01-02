@@ -11,6 +11,7 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
         }
     ];
 
+    $scope.gender = 0;
     $scope.isLogin = false;
     $scope.method = '登录';
     this.$onInit = function () {
@@ -132,7 +133,8 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
         //     params:{
         //         'id': $('#re-user-id').val(),
         //         'count-id': $('#re-user-count').val(),
-        //         'pwd': $('#re-user-pwd').val()
+        //         'pwd': $('#re-user-pwd').val(),
+        //         'gender': $scope.gender
         //     }
         // }).then( res=>{
         //     console.log(res.data);
@@ -218,5 +220,22 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
             }
         ];
     };
+
+    // 性别更换
+    $scope.showMale = function () {
+        $scope.gender = 0;
+        $('#female').transition('fade');
+        setTimeout(function () {
+            $('#male').transition('fade');
+        }, 500);
+    };
+
+    $scope.showFemale = function () {
+        $scope.gender = 1;
+        $('#male').transition('fade');
+        setTimeout(function () {
+            $('#female').transition('fade');
+        }, 500);
+    }
 
 }]);
