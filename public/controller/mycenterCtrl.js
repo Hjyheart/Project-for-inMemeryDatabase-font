@@ -2,6 +2,7 @@
  * Created by hongjiayong on 2016/12/31.
  */
 app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
+    var server = "http://192.168.1.96:8080";
     $scope.futures = [
         {
             'name': '期货1'
@@ -14,6 +15,8 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
     $scope.gender = 0;
     $scope.isLogin = false;
     $scope.method = '登录';
+    $scope.userId = '';
+    $scope.user;
     this.$onInit = function () {
 
         if ($('#state').text() === 'false'){
@@ -24,6 +27,19 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
             }, 0);
         }else{
             $scope.isLogin = true;
+            $scope.userId = $('#state').text();
+            $http({
+                method: 'POST',
+                url: server + '/user/profile',
+                params:{
+                    'id': $scope.userId
+                }
+            }).then( res=>{
+                console.log(res.data);
+                $scope.user = res.data;
+            }).catch( err=>{
+                console.log(err);
+            })
             // 加载操作
             var data;
             var data1;
@@ -58,42 +74,48 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
             return;
         }
         // 登录操作
-        // $http({
-        //     method: 'POST',
-        //     url: '',
-        //     params: {
-        //         'id': $('#user-id').val(),
-        //         'pwd': $('#user-pwd').val()
-        //     }
-        // }).then( res=>{
-        //     console.log(res.data);
-        //     $http({
-        //         method: 'POST',
-        //         url: 'http://localhost:3000/login',
-        //         params:{
-        //             'id': $('#user-id').val()
-        //         }
-        //     }).then( res=>{
-        //         console.log(res.data);
-        //     }).catch( err=>{
-        //         console.log(err);
-        //     })
-        // }).catch ( err=>{
-        //     console.log(err)
-        // })
-
         $http({
             method: 'POST',
-            url: 'http://localhost:3000/login',
-            params:{
-                'id': $('#user-id').val()
+            url: server + '/user/login',
+            params: {
+                'id': $('#user-id').val(),
+                'pwd': $('#user-pwd').val()
             }
         }).then( res=>{
             console.log(res.data);
-            window.location.href = '/mycenter';
-        }).catch( err=>{
+            if (res.data.flag === 'true'){
+                $scope.userId = res.data.id;
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost:3000/login',
+                    params:{
+                        'id': res.data.id
+                    }
+                }).then( res=>{
+                    console.log(res.data);
+                }).catch( err=>{
+                    console.log(err);
+                });
+                $('#login-modal').modal('hide');
+                $http({
+                    method: 'POST',
+                    url: server + '/user/profile',
+                    params:{
+                        'id': $scope.userId
+                    }
+                }).then( res=>{
+                    console.log(res.data);
+                    $scope.user = res.data;
+                }).catch( err=>{
+                    console.log(err);
+                })
+            }else{
+                $('#pwd').addClass('error');
+            }
+        }).catch ( err=>{
             console.log(err);
-        })
+            $('#pwd').addClass('error');
+        });
 
     };
 
