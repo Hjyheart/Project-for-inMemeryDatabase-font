@@ -2,7 +2,7 @@
  * Created by hongjiayong on 2016/12/31.
  */
 app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
-    var server = 'http://192.168.1.96:8080';
+    var server = 'http://192.168.1.24:8080';
     $scope.dates_data = [{values: []}];
     $scope.prices;
     $scope.isLogin = false;

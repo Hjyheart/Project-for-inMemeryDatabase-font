@@ -2,7 +2,7 @@
  * Created by hongjiayong on 2016/12/31.
  */
 app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
-    var server = "http://192.168.1.96:8080";
+    var server = "http://192.168.1.24:8080";
     $scope.futures = [
         {
             'name': '期货1'
@@ -12,7 +12,7 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
         }
     ];
 
-    $scope.gender = 0;
+    $scope.gender = false;
     $scope.isLogin = false;
     $scope.method = '登录';
     $scope.userId = '';
@@ -39,7 +39,7 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
                 $scope.user = res.data;
             }).catch( err=>{
                 console.log(err);
-            })
+            });
             // 加载操作
             var data;
             var data1;
@@ -84,6 +84,7 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
         }).then( res=>{
             console.log(res.data);
             if (res.data.flag === 'true'){
+                $scope.isLogin = true;
                 $scope.userId = res.data.id;
                 $http({
                     method: 'POST',
@@ -161,22 +162,27 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
             $('#re-pwd').addClass('error');
             return;
         }
-
+        console.log($('#re-user-pwd').val());
         // 注册
-        // $http({
-        //     method: 'POST',
-        //     url: '',
-        //     params:{
-        //         'id': $('#re-user-id').val(),
-        //         'count-id': $('#re-user-count').val(),
-        //         'pwd': $('#re-user-pwd').val(),
-        //         'gender': $scope.gender
-        //     }
-        // }).then( res=>{
-        //     console.log(res.data);
-        // }).catch( err=>{
-        //     console.log(err);
-        // })
+        $http({
+            method: 'POST',
+            url: server + '/user/add' ,
+            params:{
+                'name': $('#re-user-id').val(),
+                'identify': $('#re-user-count').val(),
+                'password': $('#re-user-pwd').val(),
+                'sex': $scope.gender,
+                'tel': $('#re-user-tel').val()
+            }
+        }).then( res=>{
+            console.log(res.data);
+            if (res.data){
+                $scope.toLogin();
+            }
+
+        }).catch( err=>{
+            console.log(err);
+        })
     };
 
     // 充值
@@ -259,7 +265,7 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
 
     // 性别更换
     $scope.showMale = function () {
-        $scope.gender = 0;
+        $scope.gender = false;
         $('#female').transition('fade');
         setTimeout(function () {
             $('#male').transition('fade');
@@ -267,11 +273,15 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
     };
 
     $scope.showFemale = function () {
-        $scope.gender = 1;
+        $scope.gender = true;
         $('#male').transition('fade');
         setTimeout(function () {
             $('#female').transition('fade');
         }, 500);
-    }
+    };
 
+    // 展示数据
+    $scope.showData = function () {
+        alert('test');
+    }
 }]);
