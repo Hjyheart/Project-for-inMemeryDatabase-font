@@ -3,7 +3,14 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+    var id;
+    if (req.session.userId === undefined){
+        id = false;
+    }else{
+        id = req.session.userId;
+    }
+
+    res.render('index', {state : id});
 });
 
 router.post('/login', function (req, res, next) {
@@ -17,7 +24,7 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-    console.log(req.query);
+    console.log(req);
     delete req.session.userId;
     res.send('true');
 });

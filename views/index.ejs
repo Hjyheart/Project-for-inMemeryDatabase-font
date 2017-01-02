@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Home</title>
     <link rel='stylesheet' href='/sematic/semantic.min.css' />
     <link rel='stylesheet' href='/mdui/css/mdui.min.css' />
     <link rel='stylesheet' href='/nv.d3.min.css' />
+    <link rel="stylesheet" href="http://mdui-org.b0.upaiyun.com/docs/assets/css/docs.css">
     <script src="/jquery.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.min.js"
@@ -19,14 +20,23 @@
 
   </head>
   <body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-blue mdui-theme-accent-blue" ng-app="myApp" ng-controller="futuresCtrl">
+
+  <!--应用栏-->
   <header class="mdui-appbar mdui-appbar-fixed">
     <div class="mdui-toolbar mdui-color-theme">
       <span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-drawer="{target: '#main-drawer'}"><i class="mdui-icon material-icons">&#xe5d2;</i></span>
       <a href="/home" class="mdui-typo-headline mdui-hidden-xs">期货小屋</a>
       <a href="/home" class="mdui-typo-title">内存数据库课设</a>
       <div class="mdui-toolbar-spacer"></div>
+      <span ng-if="isLogin" class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" mdui-menu="{target: '#header-menu', fixed: true}"><i class="mdui-icon material-icons">&#xe5d4;</i></span>
+      <ul class="mdui-menu" id="header-menu">
+        <li class="mdui-menu-item">
+          <a ng-click="logout()" class="mdui-ripple">登出</a>
+        </li>
+      </ul>
     </div>
   </header>
+  <div class="transition hidden" id="state"><%=state%></div>
   <div class="mdui-drawer mdui-drawer-open" id="main-drawer">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
       <div class="mdui-collapse-item mdui-collapse-item-open">
@@ -97,7 +107,7 @@
     <!--价位表-->
     <h2 class="ui header">今日价位表</h2>
     <div class="ui row">
-      <div class="ui raised fluid segment fourteen wide column" style="max-height: 220px; overflow-y: scroll">
+      <div class="ui raised fluid segment fourteen wide column" style="max-height: 400px; overflow-y: scroll">
         <table class="ui very basic celled table">
           <thead>
           <tr><th>时间</th>
@@ -276,7 +286,10 @@
         </table>
       </div>
     </div>
+    <!--底栏-->
+
   </div>
+
 
 
   <!--弹框-->

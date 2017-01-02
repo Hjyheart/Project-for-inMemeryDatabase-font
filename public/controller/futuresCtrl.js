@@ -2,6 +2,7 @@
  * Created by hongjiayong on 2016/12/31.
  */
 app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
+    $scope.isLogin = false;
     $scope.future = {
         'name': null
     };
@@ -19,6 +20,21 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
     this.$onInit = function () {
         $scope.future.name = '期货1';
 
+        if ($('#state').text() !== 'false'){
+            $scope.isLogin = true;
+        }
+
+    };
+
+    // 登出
+    $scope.logout = function () {
+        $http({
+            method: 'GET',
+            url: 'http://localhost:3000/logout'
+        }).then( res=>{
+            console.log(res.data);
+            $scope.isLogin = false;
+        })
     };
 
     // 更改期货

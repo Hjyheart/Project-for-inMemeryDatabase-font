@@ -33,6 +33,20 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
 
     };
 
+    // 登出
+    $scope.logout = function () {
+        $http({
+            method: 'GET',
+            url: 'http://localhost:3000/logout'
+        }).then( res=>{
+            console.log(res.data);
+            $scope.isLogin = false;
+            $('#login-modal').modal({
+                closable: false
+            }).modal('show');
+        })
+    };
+
     // 登录
     $scope.submitLogin = function () {
         if ($('#user-id').val() === ''){
