@@ -54,7 +54,7 @@
 <div class="ui grid vertical container" style="padding: 20px">
     <%include mycenter-modal.ejs%>
     <div class="ui row" ng-if="isLogin">
-        <div class="ui seven wide column">
+        <div class="ui seven wide column transition hidden" id="block0">
             <div class="ui card" style="min-width: 350px; min-height: 200px">
                 <div class="content">
                     <div class="header">{{user.name}}</div>
@@ -72,7 +72,7 @@
             </div>
 
         </div>
-        <div class="ui seven wide column">
+        <div class="ui seven wide column transition hidden" id="block1">
             <div class="ui cards">
                 <div class="card" style="min-width: 400px;min-height: 200px">
                     <div class="content">
@@ -94,20 +94,9 @@
         </div>
     </div>
 
-    <div class="ui row">
-        <div class="mdui-dialog" id="dialog">
-            <div class="mdui-dialog-title">Are you sure?</div>
-            <div class="mdui-dialog-content">You'll lose all photos and media!</div>
-            <div class="mdui-dialog-actions">
-                <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>cancel</button>
-                <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>erase</button>
-            </div>
-        </div>
-    </div>
-
     <div class="ui row" ng-if="isLogin">
         <div class="ui fourteen wide column">
-            <div class="ui piled segment">
+            <div class="ui piled segment transition hidden" id="block2">
                 <h1 class="ui header" align="center">
                     昨日收益
                 </h1>
@@ -120,7 +109,7 @@
         </div>
     </div>
 
-    <div class="ui row" ng-if="isLogin">
+    <div class="ui row transition hidden" ng-if="isLogin" id="block3">
         <div class="ui fourteen wide column">
             <h2 class="ui header">我的期货</h2>
             <div class="mdui-panel" mdui-panel>

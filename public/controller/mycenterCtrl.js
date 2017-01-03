@@ -2,7 +2,7 @@
  * Created by hongjiayong on 2016/12/31.
  */
 app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
-    var server = "http://192.168.1.24:8080";
+    var server = "http://localhost:8080";
     $scope.futures = [
         {
             'name': '期货1'
@@ -41,11 +41,11 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
             }).catch( err=>{
                 console.log(err);
             });
-            // 加载操作
-            var data;
-            var data1;
-            makeChart('chart', data);
-            makeChart('chart1', data1);
+
+
+            showProfile();
+
+
         }
 
     };
@@ -89,6 +89,7 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
                 $scope.userId = res.data.id;
                 $http({
                     method: 'POST',
+                    // TODO: 要改回localhost
                     url: 'http://localhost:3000/login',
                     params:{
                         'id': res.data.id
@@ -108,6 +109,7 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
                 }).then( res=>{
                     console.log(res.data);
                     $scope.user = res.data;
+                    showProfile();
                 }).catch( err=>{
                     console.log(err);
                 })
@@ -549,4 +551,29 @@ app.controller('mycenterCtrl', ['$scope', '$http', 'constService', function ($sc
     $scope.back = function () {
         $('.ui.modal').modal('hide');
     };
+
+    function showProfile() {
+        setTimeout(function () {
+            $('#block0').transition('vertical flip');
+            setTimeout(function () {
+                $('#block1').transition('fly right');
+            }, 500);
+
+            setTimeout(function () {
+                $('#block2').transition('swing right');
+            }, 500);
+
+            setTimeout(function () {
+                $('#block3').transition('browse');
+            }, 500);
+
+            setTimeout(function () {
+                $('#block4').transition('swing left');
+            }, 500);
+
+            setTimeout(function () {
+                $('#block5').transition('fly left');
+            }, 500);
+        }, 1000);
+    }
 }]);

@@ -2,7 +2,7 @@
  * Created by hongjiayong on 2016/12/31.
  */
 app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
-    var server = 'http://192.168.1.24:8080';
+    var server = 'http://localhost:8080';
     $scope.dates_data = [{values: []}];
     $scope.prices;
     $scope.isLogin = false;
@@ -167,17 +167,21 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
             }
             $http({
                 method: 'GET',
-                url: 'http://localhost:3000/future/fresh',
+                url: server + '/future/fresh',
                 params:{
-                    'id': $scope.future.id,
-                    'length': date_data.xAxis.categories.length
+                    'id': $scope.future.id
                 }
             }).then( res=>{
-                date_data.xAxis.categories.push(res.data.x);
-                date_data.series[0].data.push(res.data.y);
-                $scope.current.flag = res.data.flag;
-                $scope.current.price = res.data.y;
-                $scope.prices.push({x: res.data.x, y:res.data.y});
+                date_data.xAxis.categories.push(date_data.xAxis.categories.length + 1);
+                date_data.series[0].data.push(res.data.price);
+                if (res.data.state === 1){
+                    $scope.current.flag = true;
+                }else{
+                    $scope.current.flag = false;
+                }
+
+                $scope.current.price = res.data.price;
+                $scope.prices.push({x: date_data.xAxis.categories.length, y:res.data.price});
                 $('.price').transition('tada');
             });
 
