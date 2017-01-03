@@ -2,8 +2,9 @@
 <div class="ui basic modal" id="buy-modal">
     <div class="ui icon header">
         <i class="payment icon"></i>
-        买入
+        <p>买入</p>
     </div>
+    <div class="ui transition hidden" id="future-id"></div>
     <div class="ui grid aligned centered container">
         <div class="ui row">
             <div class="ui six wide column">
@@ -15,7 +16,7 @@
                             <input type="number" name="buy-number" placeholder="买入数额" id="buy-number">
                         </div>
                         <div class="field" id="baojia">
-                            <label>买家报价 实时价格：{{current.price}}￥</label>
+                            <label>买家报价 当前价格：￥{{current.price}}</label>
                             <input type="text" name="buy-baojia" placeholder="报价" id="buy-baojia">
                         </div>
                         <div class="field" id="pwd">
@@ -41,30 +42,6 @@
     </div>
 </div>
 
-
-<!--等待弹框-->
-<div class="ui basic modal" id="wait-modal">
-    <div class="content active dimmer">
-        <div class="ui text loader">处理中...</div>
-    </div>
-</div>
-
-<!--支付成功-->
-<div class="ui basic modal" id="success-modal">
-    <div class="ui icon header">
-        <i class="checkmark icon"></i>
-        成功
-    </div>
-</div>
-
-<!--支付失败-->
-<div class="ui basic modal" id="success-modal">
-    <div class="ui icon header">
-        <i class="remove icon"></i>
-        失败
-    </div>
-</div>
-
 <!--卖出弹框-->
 <div class="ui basic modal" id="sell-modal">
     <div class="ui icon header">
@@ -80,6 +57,10 @@
                         <div class="field" id="id">
                             <label>卖出数额</label>
                             <input type="number" name="sell-number" placeholder="卖出数额" id="sell-number">
+                        </div>
+                        <div class="field" id="maijia">
+                            <label>报价 当前价格：￥{{current.price}}</label>
+                            <input type="text" name="sell-baojia" placeholder="报价" id="sell-baojia">
                         </div>
                         <div class="field" id="pwd">
                             <label>卖出密码</label>

@@ -47,7 +47,7 @@
           <i class="mdui-collapse-item-arrow mdui-icon material-icons">&#xe313;</i>
         </div>
         <div class="mdui-collapse-item-body mdui-list" ng-repeat="future in futures" style="max-height: 600px; overflow-y: scroll">
-          <a id={{$index}} href="#" ng-click="switch(future, $index)" class="mdui-list-item mdui-ripple">{{future.name}}</a>
+          <a id={{future_id}} href="#" ng-click="switch(future, $index)" class="mdui-list-item mdui-ripple">{{future.future_name}}</a>
         </div>
       </div>
       <div class="mdui-list-item mdui-ripple">
@@ -58,15 +58,15 @@
   </div>
 
   <div class="ui grid vertical container">
-    <div class="ui row">
+    <div class="ui row transition hidden" id="block0">
       <br/>
       <h1 class="ui header">{{future.name}}</h1>
     </div>
-    <div class="ui row">
+    <div class="ui row transition hidden" id="block1">
       <div class="ui ten wide column raised segment" id="chart1-container" style="max-height: 600px;">
         <div id="chart1" style="width:100%; height:400px;"></div>
       </div>
-      <div class="ui six wide column">
+      <div class="ui six wide column transition hidden" id="block2">
         <!--期货详情-->
         <div class="ui cards">
           <div class="card" style="min-width: 350px">
@@ -85,8 +85,10 @@
           </div>
           <div class="extra content">
             <div class="ui two buttons">
-              <div class="ui basic green button" ng-click="buyFutures()">买入</div>
-              <div class="ui basic red button" ng-click="sellFutures()">卖出</div>
+              <div class="ui basic green button" ng-click="buyFutures()" ng-if="isLogin">买入</div>
+              <div class="ui basic green button disabled"  ng-if="!isLogin">买入</div>
+              <div class="ui basic red button" ng-click="sellFutures()" ng-if="isLogin">卖出</div>
+              <div class="ui basic red button disabled" ng-if="!isLogin">卖出</div>
             </div>
           </div>
         </div>
@@ -99,7 +101,7 @@
 
       </div>
     </div>
-    <div class="ui row">
+    <div class="ui row transition hidden" id="block3">
       <div class="ui sixteen wide column">
       <div id="chart2-container" >
         <h2 class="ui header">今日动态</h2>
@@ -109,8 +111,8 @@
       </div>
       </div>
     </div>
-    <h2 class="ui header">今日价位表</h2>
-    <div class="ui row">
+    <h2 class="ui header transition hidden" id="block4">今日价位表</h2>
+    <div class="ui row transition hidden" id="block5">
       <div class="ui raised fluid segment fourteen wide column" style="max-height: 400px; overflow-y: scroll">
         <table class="ui very basic celled table">
           <thead>

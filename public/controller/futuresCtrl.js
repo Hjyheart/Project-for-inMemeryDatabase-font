@@ -98,7 +98,7 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
 
         $http({
             method: 'GET',
-            url: 'http://localhost:3000/futruelist'
+            url: server + '/future/futureList'
         }).then( res=>{
             console.log(res.data);
             $scope.futures = res.data;
@@ -107,7 +107,7 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
                 method: 'GET',
                 url: server +  '/future',
                 params: {
-                    'id': res.data[0].id
+                    'id': res.data[0].future_id
                 }
             }).then( res=>{
                 console.log(res.data);
@@ -128,10 +128,38 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
                 forNextPrice(id);
                 // 刷新图
                 refreshChart(id);
+
             });
         }).catch( err=>{
             console.log(err);
         });
+
+        // 动画
+        setTimeout(function () {
+            $('#block0').transition('vertical flip');
+
+            setTimeout(function () {
+                $('#block1').transition('swing right');
+            }, 500);
+
+            setTimeout(function () {
+                $('#block2').transition('fly right');
+            }, 500);
+
+            setTimeout(function () {
+                $('#block3').transition('vertical flip');
+            }, 500);
+
+            setTimeout(function () {
+                $('#block4').transition('swing right');
+            }, 500);
+
+            setTimeout(function () {
+                $('#block5').transition('browse');
+            }, 500);
+
+
+        }, 2000);
 
         function forNextPrice() {
             if (id !== $scope.future.id.toString()){
@@ -189,7 +217,7 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
             method: 'GET',
             url: server + '/future',
             params: {
-                'id': future.id
+                'id': future.future_id
             }
         }).then( res=>{
             console.log(res.data);
@@ -218,30 +246,66 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
 
     // 确认买入
     $scope.submitBuy = function () {
-        // $http({
-        //     method: 'POST',
-        //     url: '',
-        //     params:{
-        //         'id': $scope.future.id
-        //         'number': $('#buy-number').val(),
-        //         'pwd': $('#buy-pwd').val()
-        //     }
-        // }).then( res=>{
-        //     $('#buy-modal').modal('hide');
-        // }).catch( err=>{
-        //     console.log(err);
-        // })
-        $('#buy-modal').modal('hide');
-        $('#wait-modal').modal({
-            closable:false
-        }).modal('show');
-        setTimeout(function () {
-            $('#wait-modal').modal('hide');
-            $('#success-modal').modal('show');
-            setTimeout(function () {
-                $('#success-modal').modal('hide');
-            }, 1000);
-        }, 2000);
+        $.ajax({
+            method: 'POST',
+            cache: false,
+            url: server + '/buy',
+            data: JSON.stringify({
+                'f_Id':$scope.future.id,
+                'u_Id': $('#state').text(),
+                'number': $('#buy-number').val(),
+                'price': $('#buy-baojia').val(),
+                'pwd': $('#buy-pwd').val()
+            }),
+            processData: false,
+            contentType: 'application/json'
+        }).done( function(res){
+            console.log(res);
+            $('#buy-modal').modal('hide');
+
+            if (res === 1){
+                mdui.snackbar({
+                    message: '操作成功！'
+                });
+
+            }else if(res === 2){
+                mdui.snackbar({
+                    message: '您的余额不足，购买失败了'
+                });
+                setTimeout(function () {
+                    $('#buy-modal').modal({
+                        closable: false
+                    }).modal('show');
+                }, 2000);
+            }else if(res === 3){
+                mdui.snackbar({
+                    message: '您的报价低于最低价，购买失败了'
+                });
+                setTimeout(function () {
+                    $('#buy-modal').modal({
+                        closable: false
+                    }).modal('show');
+                }, 2000);
+            }else if(res === 4){
+                mdui.snackbar({
+                    message: '我们的后台挂了，购买失败了'
+                });
+                setTimeout(function () {
+                    $('#buy-modal').modal({
+                        closable: false
+                    }).modal('show');
+                }, 2000);
+            }else if(res === 5){
+                mdui.snackbar({
+                    message: '您的密码错误，购买失败了'
+                });
+                setTimeout(function () {
+                    $('#buy-modal').modal({
+                        closable: false
+                    }).modal('show');
+                }, 2000);
+            }
+        })
     };
 
     // 取消支付
@@ -258,30 +322,65 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
 
     // 确认卖出
     $scope.submitSell = function () {
-        // $http({
-        //     method: 'POST',
-        //     url: '',
-        //     params:{
-        //         'id': $scope.future.id
-        //         'number': $('#sell-number').val(),
-        //         'pwd': $('#sell-pwd').val()
-        //     }
-        // }).then( res=>{
-        //     $('#sell-modal').modal('hide');
-        // }).catch( err=>{
-        //     console.log(err);
-        // })
-        $('#sell-modal').modal('hide');
-        $('#wait-modal').modal({
-            closable:false
-        }).modal('show');
-        setTimeout(function () {
-            $('#wait-modal').modal('hide');
-            $('#success-modal').modal('show');
-            setTimeout(function () {
-                $('#success-modal').modal('hide');
-            }, 1000);
-        }, 2000);
+        $.ajax({
+            method: 'POST',
+            cache: false,
+            url: server + '/sell',
+            data: JSON.stringify({
+                'f_Id':$scope.future.id,
+                'u_Id': $('#state').text(),
+                'number': $('#sell-number').val(),
+                'price': $('#sell-baojia').val(),
+                'pwd': $('#sell-pwd').val()
+            }),
+            processData: false,
+            contentType: 'application/json'
+        }).done( function(res){
+            console.log(res);
+            $('#sell-modal').modal('hide');
+
+            if (res === 1){
+                mdui.snackbar({
+                    message: '操作成功！'
+                });
+            }else if(res === 2){
+                mdui.snackbar({
+                    message: '您的仓库存储不足，卖出失败了'
+                });
+                setTimeout(function () {
+                    $('#sell-modal').modal({
+                        closable: false
+                    }).modal('show');
+                }, 2000);
+            }else if(res === 3){
+                mdui.snackbar({
+                    message: '您的报价高于市场价格，卖出失败了'
+                });
+                setTimeout(function () {
+                    $('#sell-modal').modal({
+                        closable: false
+                    }).modal('show');
+                }, 2000);
+            }else if(res === 4){
+                mdui.snackbar({
+                    message: '我们的后台挂了，卖出失败了'
+                });
+                setTimeout(function () {
+                    $('#sell-modal').modal({
+                        closable: false
+                    }).modal('show');
+                }, 2000);
+            }else if(res === 5){
+                mdui.snackbar({
+                    message: '您的密码错误，卖出失败了'
+                });
+                setTimeout(function () {
+                    $('#sell-modal').modal({
+                        closable: false
+                    }).modal('show');
+                }, 2000);
+            }
+        })
     };
 
     // 图表1绘制
