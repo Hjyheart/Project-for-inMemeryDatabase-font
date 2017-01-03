@@ -126,3 +126,97 @@
         </div>
     </div>
 </div>
+
+<!--买入弹框-->
+<div class="ui basic modal" id="buy-modal">
+    <div class="ui icon header">
+        <i class="payment icon"></i>
+        <p>{{error}}</p>
+    </div>
+    <div class="ui transition hidden" id="future-id"></div>
+    <div class="ui grid aligned centered container">
+        <div class="ui row">
+            <div class="ui six wide column">
+                <div class="content">
+                    <!--买入表单-->
+                    <div class="ui inverted form" id="buy-form">
+                        <div class="field" id="id">
+                            <label>买入数额</label>
+                            <input type="number" name="buy-number" placeholder="买入数额" id="buy-number">
+                        </div>
+                        <div class="field" id="baojia">
+                            <label>买家报价</label>
+                            <input type="text" name="buy-baojia" placeholder="报价" id="buy-baojia">
+                        </div>
+                        <div class="field" id="pwd">
+                            <label>购买密码</label>
+                            <input type="password" name="buy-pwd" placeholder="密码" id="buy-pwd">
+                        </div>
+                        <div class="field">
+                            <button class="ui green fluid inverted button" ng-click="submitBuy()">
+                                提交
+                            </button>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <div class="field">
+                            <button class="ui red fluid inverted button" ng-click="back()">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--等待弹框-->
+<div class="ui basic modal" id="wait-modal">
+    <div class="content active dimmer">
+        <div class="ui text loader">处理中...</div>
+    </div>
+</div>
+
+<!--卖出弹框-->
+<div class="ui basic modal" id="sell-modal">
+    <div class="ui icon header">
+        <i class="payment icon"></i>
+        卖出
+    </div>
+    <div class="ui grid aligned centered container">
+        <div class="ui row">
+            <div class="ui six wide column">
+                <div class="content">
+                    <!--卖出表单-->
+                    <div class="ui inverted form" id="sell-form">
+                        <div class="field" id="id">
+                            <label>卖出数额</label>
+                            <input type="number" name="sell-number" placeholder="卖出数额" id="sell-number">
+                        </div>
+                        <div class="field" id="maijia">
+                            <label>报价</label>
+                            <input type="text" name="sell-baojia" placeholder="报价" id="sell-baojia">
+                        </div>
+                        <div class="field" id="pwd">
+                            <label>卖出密码</label>
+                            <input type="password" name="sell-pwd" placeholder="密码" id="sell-pwd">
+                        </div>
+                        <div class="field">
+                            <button class="ui green fluid inverted button" ng-click="submitSell()">
+                                提交
+                            </button>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <div class="field">
+                            <button class="ui red fluid inverted button" ng-click="back()">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

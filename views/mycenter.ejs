@@ -9,6 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.min.js"
             crossorigin="anonymous"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="/sematic/semantic.min.js" crossorigin="anonymous"></script>
     <script src="/mdui/js/mdui.min.js"></script>
@@ -92,6 +94,17 @@
         </div>
     </div>
 
+    <div class="ui row">
+        <div class="mdui-dialog" id="dialog">
+            <div class="mdui-dialog-title">Are you sure?</div>
+            <div class="mdui-dialog-content">You'll lose all photos and media!</div>
+            <div class="mdui-dialog-actions">
+                <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>cancel</button>
+                <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>erase</button>
+            </div>
+        </div>
+    </div>
+
     <div class="ui row" ng-if="isLogin">
         <div class="ui fourteen wide column">
             <div class="ui piled segment">
@@ -111,7 +124,7 @@
         <div class="ui fourteen wide column">
             <h2 class="ui header">我的期货</h2>
             <div class="mdui-panel" mdui-panel>
-                <div class="mdui-panel-item" ng-click="showData()" ng-repeat="future in user.my_future">
+                <div class="mdui-panel-item" ng-click="showData(future, $index)" ng-repeat="future in user.my_future">
                     <div class="mdui-panel-item-header">
                         <div class="mdui-panel-item-title">{{future.future_name}}</div>
                         <div class="mdui-panel-item-summary">
@@ -120,12 +133,11 @@
 
                         <i class="mdui-panel-item-arrow mdui-icon material-icons">&#xe313;</i>
                     </div>
-                    <div class="mdui-panel-item-body" id="chart">
-                        <h4 class="ui header">昨日动态</h4>
-                        <svg></svg>
+                    <div class="mdui-panel-item-body">
+                        <div id="chart-{{$index}}"></div>
                         <div class="mdui-panel-item-actions">
-                            <button class="ui green basic button">买入</button>
-                            <button class="ui red basic button">卖出</button>
+                            <button class="ui green basic button" ng-click="buyFuture(future)">买入</button>
+                            <button class="ui red basic button" ng-click="sellFuture(future)">卖出</button>
                         </div>
                     </div>
                 </div>
