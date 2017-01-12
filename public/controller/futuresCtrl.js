@@ -2,7 +2,7 @@
  * Created by hongjiayong on 2016/12/31.
  */
 app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
-    var server = 'http://localhost:8080';
+    var server = 'http://192.168.1.24:8080';
     $scope.dates_data = [{values: []}];
     $scope.prices;
     $scope.isLogin = false;
@@ -185,7 +185,7 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
                 $('.price').transition('tada');
             });
 
-            setTimeout(forNextPrice, 1000);
+            setTimeout(forNextPrice, 3000);
         };
 
         function refreshChart() {
@@ -234,7 +234,7 @@ app.controller('futuresCtrl', ['$scope', '$http', 'constService', function ($sco
             }
 
             // 请求下一秒
-            id = $scope.future.id;
+            id = $scope.future.id.toString();
             forNextPrice(id);
             // 刷新图
             refreshChart(id)
